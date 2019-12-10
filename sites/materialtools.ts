@@ -1,4 +1,4 @@
-import { Phone, SMS, Site } from './models'
+import { Phone, SMS, Site, Browser } from './models'
 import * as puppeteer from 'puppeteer'
 
 async function filterRequest(page: puppeteer.Page) {
@@ -27,11 +27,7 @@ async function filterRequest(page: puppeteer.Page) {
 export class Materialtools implements Site {
     name = 'materialtools'
     async list(): Promise<Array<Phone>> {
-
-        const browser = await puppeteer.launch({
-            headless: true,
-            defaultViewport: null
-        })
+        const browser = await Browser.getBrowser()
         const page = await browser.newPage()
         await filterRequest(page)
         await page.goto('https://www.materialtools.com/')
@@ -46,15 +42,11 @@ export class Materialtools implements Site {
             await page.goto(`https://www.materialtools.com/?page=${i}`)
             data = data.concat(await this.parse(page))
         }
-
-        await browser.close()
+        await page.close()
         return data
     }
     async detail(phone: Phone): Promise<Array<SMS>> {
-        const browser = await puppeteer.launch({
-            headless: true,
-            defaultViewport: null
-        })
+        const browser = await Browser.getBrowser()
         const page = await browser.newPage()
         await filterRequest(page)
         await page.goto(phone.detail_url)
@@ -74,7 +66,7 @@ export class Materialtools implements Site {
             }
             return data
         })
-        await browser.close()
+        await page.close()
         return data
     }
     async parse(page: puppeteer.Page): Promise<Array<Phone>> {

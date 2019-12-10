@@ -1,3 +1,5 @@
+import * as puppeteer from 'puppeteer'
+
 export interface Phone {
     phone_number: string
     detail_url: string
@@ -36,3 +38,18 @@ export const Global = new class {
         })
     }
 }
+
+class BrowserCls {
+    browser: puppeteer.Browser
+    async getBrowser(): Promise<puppeteer.Browser> {
+        if (!this.browser) {
+            this.browser = await puppeteer.launch({
+                headless: false,
+                defaultViewport: null,
+            })
+        }
+        return this.browser
+    }
+}
+
+export const Browser = new BrowserCls()
