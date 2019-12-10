@@ -1,6 +1,7 @@
 import { Materialtools } from './sites/materialtools'
 import { Becmd } from './sites/becmd'
 import { Cnwml } from './sites/cnwml'
+import { ZSms } from './sites/zsms'
 import { Global } from './sites/models'
 
 import * as http from 'http'
@@ -9,6 +10,7 @@ import * as url from "url"
 Global.pushSite(new Materialtools())
 Global.pushSite(new Becmd())
 Global.pushSite(new Cnwml())
+Global.pushSite(new ZSms())
 
 http.createServer(async function (req, resp) {
     const parsed = url.parse(req.url, true)
