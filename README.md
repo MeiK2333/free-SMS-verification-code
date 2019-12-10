@@ -3,5 +3,5 @@
 ## Run
 
 ```
-python main.py
+ts-node main.ts
 ```
