@@ -36,24 +36,23 @@ async function filterRequest(page: puppeteer.Page) {
     });
 }
 
-export class Becmd implements Site {
-    name = 'becmd'
+export class Cnwml implements Site {
+    name = 'cnwml'
     async list(): Promise<Array<Phone>> {
         const browser = await Browser.getBrowser()
         const page = await browser.newPage()
         await filterRequest(page)
-        await page.goto('https://www.becmd.com/')
+        await page.goto('https://www.cnwml.com/')
 
         const data = await page.evaluate((site_name) => {
-            const div = document.getElementsByClassName('col-md-5')
+            const div = document.getElementsByClassName('number-boxes-item')
             const data = []
-            for (let i = 2; i < div.length; i++) {
-                const phone_number = div[i].querySelector('h2').innerText.trim()
+            for (let i = 0; i < div.length; i++) {
+                const phone_number = div[i].querySelector('h4').innerText.trim()
                 if (!phone_number.startsWith('+86')) {
                     continue
                 }
-                //@ts-ignore
-                const detail_url = div[i].querySelector('.btn-success').href
+                const detail_url = div[i].querySelector('a').href
                 data.push({
                     phone_number: phone_number.substr(3),
                     detail_url: detail_url,
@@ -73,15 +72,13 @@ export class Becmd implements Site {
 
         const data = await page.evaluate(() => {
             const data = []
-            const tr_list = document.querySelectorAll('tr')
-            for (let i = 0; i < tr_list.length; i++) {
-                const tr = tr_list[i].querySelectorAll('td')
-                if (tr.length < 4 || isNaN(Number(tr[0].innerText.trim()))) {
-                    continue
-                }
-                const send_phone = tr[1].innerText.trim()
-                const recv_time = tr[2].querySelector('script').innerText.match(/diff_time\("(.*)"\)/)[1]
-                const text = tr[3].innerText.trim()
+            const tr_list = document.getElementsByClassName('list-item')
+            for (let i = 3; i < tr_list.length; i++) {
+                const tr = tr_list[i]
+                const send_phone = tr.querySelector('h3').innerText.trim()
+                const recv_time = tr.querySelector('script').innerText.match(/diff_time\("(.*)"\)/)[1]
+                //@ts-ignore
+                const text = tr.querySelector('.list-item-content').innerText.trim()
                 data.push({
                     send_phone: send_phone,
                     recv_time: recv_time,
