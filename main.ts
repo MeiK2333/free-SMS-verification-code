@@ -4,6 +4,7 @@ import { Cnwml } from './sites/cnwml'
 import { ZSms } from './sites/zsms'
 import { XNSms } from './sites/xnsms'
 import { ZuSms } from './sites/zusms'
+import { YinSiDuanXin } from './sites/yinsiduanxin'
 import { Global } from './sites/models'
 
 import * as http from 'http'
@@ -15,6 +16,7 @@ Global.pushSite(new Cnwml())
 Global.pushSite(new ZSms())
 Global.pushSite(new XNSms())
 Global.pushSite(new ZuSms())
+Global.pushSite(new YinSiDuanXin())
 
 http.createServer(async function (req, resp) {
     const parsed = url.parse(req.url, true)

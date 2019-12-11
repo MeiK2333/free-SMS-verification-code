@@ -13,10 +13,7 @@ ts-node main.ts
 - https://www.becmd.com/
 - https://www.cnwml.com/
 - https://www.materialtools.com/
-- http://www.z-sms.com/
 - http://www.xnsms.com/
-
-## TODO
-
-- https://zusms.com/
 - https://www.yinsiduanxin.com/index.html
+- http://www.z-sms.com/
+- https://zusms.com/
