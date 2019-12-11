@@ -70,7 +70,7 @@ export class ZSms implements Site {
     }
     async detail(phone: Phone): Promise<Array<SMS>> {
         const cookie = phone.detail_url
-        const { data } = await axios.post('http://www.z-sms.com/admin/redis/smslistSB.php', "PhoNum=18866478549",
+        const { data } = await axios.post('http://www.z-sms.com/admin/redis/smslistSB.php', `PhoNum=${phone.phone_number}`,
             {
                 headers: {
                     "Cookie": cookie,
