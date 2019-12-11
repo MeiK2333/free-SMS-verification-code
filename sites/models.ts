@@ -7,7 +7,7 @@ export interface Phone {
 }
 
 export interface SMS {
-    phone: string
+    phone?: string
     text: string
     recv_time: string
     send_phone: string
