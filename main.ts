@@ -3,6 +3,7 @@ import { Becmd } from './sites/becmd'
 import { Cnwml } from './sites/cnwml'
 import { ZSms } from './sites/zsms'
 import { XNSms } from './sites/xnsms'
+import { ZuSms } from './sites/zusms'
 import { Global } from './sites/models'
 
 import * as http from 'http'
@@ -13,6 +14,7 @@ Global.pushSite(new Becmd())
 Global.pushSite(new Cnwml())
 Global.pushSite(new ZSms())
 Global.pushSite(new XNSms())
+Global.pushSite(new ZuSms())
 
 http.createServer(async function (req, resp) {
     const parsed = url.parse(req.url, true)
