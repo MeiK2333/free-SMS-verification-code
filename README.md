@@ -1,5 +1,12 @@
 # free-SMS-verification-code
 
+## Build
+
+```
+cd html
+npm run build
+```
+
 ## Run
 
 ```

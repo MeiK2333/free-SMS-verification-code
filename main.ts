@@ -9,6 +9,7 @@ import { Global } from './sites/models'
 
 import * as http from 'http'
 import * as url from "url"
+import { promises } from 'fs'
 
 Global.pushSite(new Materialtools())
 Global.pushSite(new Becmd())
@@ -65,8 +66,48 @@ http.createServer(async function (req, resp) {
             }
         }
     } else {
-        resp.writeHead(404)
-        resp.write('page not found')
+        var staticPath = 'html/dist'
+        var filePath = staticPath + path;
+        if (path === '/')
+            filePath = `${staticPath}/index.html`
+
+        var extname = filePath.split('.').pop()
+        var contentType = 'text/html'
+        switch (extname) {
+            case 'js':
+                contentType = 'text/javascript'
+                break
+            case 'css':
+                contentType = 'text/css'
+                break
+            case 'json':
+                contentType = 'application/json'
+                break
+            case 'png':
+                contentType = 'image/png'
+                break
+            case 'jpg':
+                contentType = 'image/jpg'
+                break
+            case 'ico':
+                contentType = 'image/vnd.microsoft.icon'
+                break
+            case 'wav':
+                contentType = 'audio/wav'
+                break
+        }
+        resp.writeHead(200, { 'Content-type': `${contentType}; charset=utf-8` })
+        let content
+        try {
+            content = await promises.readFile(filePath)
+        } catch (e) {
+            if (e.code === 'ENOENT') {
+                content = await promises.readFile(`${staticPath}/index.html`)
+            } else {
+                resp.writeHead(500)
+            }
+        }
+        resp.write(content)
     }
     resp.end()
 }).listen(8080)
