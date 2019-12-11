@@ -44,7 +44,7 @@ class BrowserCls {
     async getBrowser(): Promise<puppeteer.Browser> {
         if (!this.browser) {
             this.browser = await puppeteer.launch({
-                headless: false,
+                headless: true,
                 defaultViewport: null,
             })
         }
