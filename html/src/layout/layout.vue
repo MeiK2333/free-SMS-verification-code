@@ -2,8 +2,15 @@
   <div class="layout">
     <el-container>
       <el-header>
-        <router-link :to="{ path: '/' }">Index</router-link>&nbsp;
-        <router-link :to="{ path: '/404' }">404</router-link>
+        <el-menu
+          :default-active="activeIndex"
+          class="el-menu-demo"
+          mode="horizontal"
+          :router="true"
+        >
+          <el-menu-item index="/">Index</el-menu-item>
+          <el-menu-item index="/404">404</el-menu-item>
+        </el-menu>
       </el-header>
       <el-main>
         <slot></slot>
@@ -20,7 +27,9 @@
 
 <script>
 export default {
-  name: "Layout"
+  name: "Layout",
+  methods: {
+  }
 };
 </script>
 
