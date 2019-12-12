@@ -10,7 +10,7 @@ npm run build
 ## Run
 
 ```
-ts-node main.ts
+npm run serve
 ```
 
 ## Source
