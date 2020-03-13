@@ -11,7 +11,7 @@ import * as http from 'http'
 import * as url from "url"
 import { promises } from 'fs'
 
-Global.pushSite(new Materialtools())
+// Global.pushSite(new Materialtools())
 Global.pushSite(new Becmd())
 Global.pushSite(new Cnwml())
 Global.pushSite(new ZSms())
